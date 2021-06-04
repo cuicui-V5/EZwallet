@@ -57,6 +57,7 @@ namespace 轻松记账
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.tabControlExt1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -72,11 +73,11 @@ namespace 轻松记账
             // ucCombox1
             // 
             this.ucCombox1.BackColor = System.Drawing.Color.Transparent;
-            this.ucCombox1.BackColorExt = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.ucCombox1.BackColorExt = System.Drawing.Color.White;
             this.ucCombox1.BoxStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ucCombox1.ConerRadius = 5;
             this.ucCombox1.DropPanelHeight = -1;
-            this.ucCombox1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.ucCombox1.FillColor = System.Drawing.Color.White;
             this.ucCombox1.Font = new System.Drawing.Font("微软雅黑", 12F);
             this.ucCombox1.IsRadius = true;
             this.ucCombox1.IsShowRect = true;
@@ -84,7 +85,7 @@ namespace 轻松记账
             this.ucCombox1.Location = new System.Drawing.Point(97, 69);
             this.ucCombox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ucCombox1.Name = "ucCombox1";
-            this.ucCombox1.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.ucCombox1.RectColor = System.Drawing.Color.White;
             this.ucCombox1.RectWidth = 1;
             this.ucCombox1.SelectedIndex = -1;
             this.ucCombox1.SelectedValue = "";
@@ -195,12 +196,14 @@ namespace 轻松记账
             // tabControlExt1
             // 
             this.tabControlExt1.Alignment = System.Windows.Forms.TabAlignment.Bottom;
+            this.tabControlExt1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.tabControlExt1.CloseBtnColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(85)))), ((int)(((byte)(51)))));
             this.tabControlExt1.Controls.Add(this.tabPage1);
             this.tabControlExt1.Controls.Add(this.tabPage2);
             this.tabControlExt1.Controls.Add(this.tabPage3);
             this.tabControlExt1.Controls.Add(this.tabPage4);
             this.tabControlExt1.Controls.Add(this.tabPage5);
+            this.tabControlExt1.HeaderBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.tabControlExt1.IsShowCloseBtn = false;
             this.tabControlExt1.ItemSize = new System.Drawing.Size(0, 50);
             this.tabControlExt1.Location = new System.Drawing.Point(6, 66);
@@ -213,6 +216,7 @@ namespace 轻松记账
             // 
             // tabPage1
             // 
+            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.tabPage1.Controls.Add(this.textBoxEx3);
             this.tabPage1.Controls.Add(this.ucDateTimeSelectPan21);
             this.tabPage1.Controls.Add(this.ucSplitLabel4);
@@ -233,7 +237,6 @@ namespace 轻松记账
             this.tabPage1.Size = new System.Drawing.Size(786, 336);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "记账";
-            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // ucDateTimeSelectPan21
             // 
@@ -246,6 +249,8 @@ namespace 轻松记账
             this.ucDateTimeSelectPan21.TabIndex = 17;
             this.ucDateTimeSelectPan21.TimeType = HZH_Controls.Controls.DateTimePickerType.DateTime;
             this.ucDateTimeSelectPan21.Visible = false;
+            this.ucDateTimeSelectPan21.SelectedTimeEvent += new System.EventHandler(this.ucDateTimeSelectPan21_SelectedTimeEvent);
+            this.ucDateTimeSelectPan21.CancelTimeEvent += new System.EventHandler(this.ucDateTimeSelectPan21_CancelTimeEvent);
             // 
             // ucSplitLabel4
             // 
@@ -321,7 +326,7 @@ namespace 轻松记账
             0,
             0});
             this.ucNumTextBox1.InputType = HZH_Controls.TextInputType.Number;
-            this.ucNumTextBox1.IsNumCanInput = false;
+            this.ucNumTextBox1.IsNumCanInput = true;
             this.ucNumTextBox1.KeyBoardType = HZH_Controls.Controls.KeyBoardType.UCKeyBorderNum;
             this.ucNumTextBox1.Location = new System.Drawing.Point(97, 28);
             this.ucNumTextBox1.MaxValue = new decimal(new int[] {
@@ -526,6 +531,7 @@ namespace 轻松记账
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.linkLabel1);
             this.tabPage5.Controls.Add(this.textBoxEx2);
             this.tabPage5.Location = new System.Drawing.Point(4, 4);
             this.tabPage5.Name = "tabPage5";
@@ -540,11 +546,22 @@ namespace 轻松记账
             this.timer1.Interval = 300;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(280, 316);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(270, 17);
+            this.linkLabel1.TabIndex = 1;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "项目地址 https://github.com/xrswyea/EZwallet";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.ClientSize = new System.Drawing.Size(800, 459);
             this.Controls.Add(this.tabControlExt1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -593,6 +610,7 @@ namespace 轻松记账
         private System.Windows.Forms.Label label1;
         private HZH_Controls.Controls.UCBtnExt ucBtnExt5;
         private HZH_Controls.Controls.UCBtnExt ucBtnExt4;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }
 

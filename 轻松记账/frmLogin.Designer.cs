@@ -170,6 +170,7 @@ namespace 轻松记账
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.ClientSize = new System.Drawing.Size(493, 353);
             this.Controls.Add(this.textBoxEx2);
             this.Controls.Add(this.textBoxEx1);

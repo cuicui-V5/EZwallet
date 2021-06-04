@@ -40,14 +40,14 @@ namespace 轻松记账
             for (int i = 0; i <= 100; )
             {
                 ucProcessLine1.Value = i;
-                Thread.Sleep(10);
+                Thread.Sleep(5);
                 if (i<35)
                 {
-                    i++;
+                    i+=3;
                 }
                 else
                 {
-                    i += 5;
+                    i += 8;
                 }
             }
             this.Close();

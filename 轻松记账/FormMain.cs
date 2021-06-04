@@ -17,6 +17,7 @@ namespace 轻松记账
     public partial class FormMain : FrmWithTitle
     {
         int log_user_id;
+
         DataTable table;
         public FormMain()
         {
@@ -65,7 +66,7 @@ namespace 轻松记账
             this.ucDataGridView1.Columns = lstCulumns;
 
             ucDataGridView1.IsShowCheckBox = true;
- 
+
 
             ucCombox1.SelectedIndex = 0;
 
@@ -73,7 +74,7 @@ namespace 轻松记账
             string user_Id = log_user_id.ToString();
             string sqlcmd = $"SELECT * FROM User_table WHERE user_Id = {user_Id}";
             DataTable dt = accessDB.Sql_Inquire(sqlcmd);
-            if (dt.Rows.Count!=0)
+            if (dt.Rows.Count != 0)
             {
                 label1.Text += dt.Rows[0][1].ToString();
             }
@@ -81,6 +82,10 @@ namespace 轻松记账
             {
                 label1.Text += "未知用户";
             }
+
+
+            textBoxEx3.Text = ucDateTimeSelectPan21.CurrentTime.ToString("yyyy-MM-dd HH:mm:ss:fff");
+
 
         }
 
@@ -103,7 +108,6 @@ namespace 轻松记账
         private void timer1_Tick(object sender, EventArgs e)
         {
             ucledTime1.Value = DateTime.Now;
-            textBoxEx3.Text = ucDateTimeSelectPan21.CurrentTime.ToString("yyyy-MM-dd HH:mm:ss:fff");
 
             Application.DoEvents();
         }
@@ -117,7 +121,7 @@ namespace 轻松记账
                 case 0: this.Title = "轻松记账"; break;
                 case 1:
                     {
-                        this.Title = "账单"; 
+                        this.Title = "账单";
                         string sqlcmd = $"select * from bill where user_id = {log_user_id}";
                         table = accessDB.Sql_Inquire(sqlcmd);
                         this.ucDataGridView1.DataSource = table;
@@ -131,7 +135,7 @@ namespace 轻松记账
             }
         }
 
- 
+
 
         private void ucBtnExt2_BtnClick(object sender, EventArgs e)
         {
@@ -165,16 +169,51 @@ namespace 轻松记账
         private void ucBtnExt4_BtnClick(object sender, EventArgs e)
         {
 
+
+
+            foreach (IDataGridViewRow row in ucDataGridView1.Rows)
+            {
+                if (row.IsChecked)
+                {
+
+                    Console.WriteLine("修改。。。");
+                    string b_id = table.Rows[row.RowIndex][5].ToString();
+                    string amount = table.Rows[row.RowIndex][1].ToString();
+                    string note = table.Rows[row.RowIndex][2].ToString();
+                    string time = table.Rows[row.RowIndex][3].ToString();
+                    string type = table.Rows[row.RowIndex][4].ToString();
+                    frmModify frmmod = new frmModify(b_id, amount, note, time,type);
+                    frmmod.ShowDialog();
+                    if (frmmod.DialogResult == DialogResult.OK)
+                    {
+                        FrmTips.ShowTipsSuccess(this, "删除成功");
+                        break;
+                    }
+
+                    else
+                    {
+                        FrmTips.ShowTipsWarning(this, "出了点错误");
+                    }
+
+                }
+
+            }
+            string sqlcmd1 = $"select * from bill where user_id = {log_user_id}";
+            table = accessDB.Sql_Inquire(sqlcmd1);
+            this.ucDataGridView1.DataSource = table;
+            ucDataGridView1.ReloadSource();
+
+
         }
 
         private void ucBtnExt5_BtnClick(object sender, EventArgs e)
         {
-            foreach ( IDataGridViewRow  row in ucDataGridView1.Rows)
+            foreach (IDataGridViewRow row in ucDataGridView1.Rows)
             {
                 if (row.IsChecked)
                 {
-                    string str = "确认删除编号 : "+ table.Rows[row.RowIndex][5].ToString();
-                    if (FrmDialog.ShowDialog(this, str, "删除记录", true)==DialogResult.OK)
+                    string str = "确认删除编号 : " + table.Rows[row.RowIndex][5].ToString();
+                    if (FrmDialog.ShowDialog(this, str, "删除记录", true) == DialogResult.OK)
                     {
                         Console.WriteLine("删除。。。");
                         string b_id = table.Rows[row.RowIndex][5].ToString();
@@ -190,10 +229,10 @@ namespace 轻松记账
                             FrmTips.ShowTipsWarning(this, "出了点错误");
                         }
 
-                        
+
 
                     }
-                  
+
 
 
                 }
@@ -205,7 +244,21 @@ namespace 轻松记账
             ucDataGridView1.ReloadSource();
         }
 
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/xrswyea/EZwallet");
+        }
 
+        private void ucDateTimeSelectPan21_SelectedTimeEvent(object sender, EventArgs e)
+        {
+            textBoxEx3.Text = ucDateTimeSelectPan21.CurrentTime.ToString("yyyy-MM-dd HH:mm:ss:fff");
+            ucDateTimeSelectPan21.Visible = false;
+        }
+
+        private void ucDateTimeSelectPan21_CancelTimeEvent(object sender, EventArgs e)
+        {
+            ucDateTimeSelectPan21.Visible = false;
+        }
     }
 }
 
