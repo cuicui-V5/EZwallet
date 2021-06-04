@@ -1,6 +1,7 @@
 ﻿using HZH_Controls.Controls;
 using HZH_Controls.Forms;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,8 @@ namespace 轻松记账
 {
     public partial class FormMain : FrmWithTitle
     {
+        int log_user_id;
+        DataTable table;
         public FormMain()
         {
             InitializeComponent();
@@ -22,38 +25,187 @@ namespace 轻松记账
 
         private void FormMain_Load(object sender, EventArgs e)
         {
-            for (; ; )
+
+            timer1.Start();
+
+            frmLogin frmlog = new frmLogin();
+            frmlog.ShowDialog();//登录界面
+            Console.WriteLine(frmlog.loginuser_id);
+            log_user_id = frmlog.loginuser_id;
+
+
+            FrmTips.ShowTipsSuccess(this, "登录成功");
+
+            processLine pl = new processLine();
+            pl.ShowDialog(); //进度条
+
+
+            List<KeyValuePair<string, string>> lstCom = new List<KeyValuePair<string, string>>();
+            lstCom.Add(new KeyValuePair<string, string>("1", "美食"));
+            lstCom.Add(new KeyValuePair<string, string>("2", "购物"));
+            lstCom.Add(new KeyValuePair<string, string>("3", "缴费"));
+            lstCom.Add(new KeyValuePair<string, string>("4", "转账"));
+            lstCom.Add(new KeyValuePair<string, string>("5", "其他"));
+            this.ucCombox1.Source = lstCom;
+            //combox数据绑定
+
+            ucNumTextBox1.Num = -10;
+
+
+            ucKeyBorderAll1.Visible = false;
+
+
+            List<DataGridViewColumnEntity> lstCulumns = new List<DataGridViewColumnEntity>();
+            lstCulumns.Add(new DataGridViewColumnEntity() { DataField = "b_id", HeadText = "序号", Width = 10, WidthType = SizeType.Percent });
+            lstCulumns.Add(new DataGridViewColumnEntity() { DataField = "type", HeadText = "类型", Width = 15, WidthType = SizeType.Percent });
+            lstCulumns.Add(new DataGridViewColumnEntity() { DataField = "amount", HeadText = "金额", Width = 20, WidthType = SizeType.Percent });
+            lstCulumns.Add(new DataGridViewColumnEntity() { DataField = "time", HeadText = "时间", Width = 25, WidthType = SizeType.Percent });
+            lstCulumns.Add(new DataGridViewColumnEntity() { DataField = "note", HeadText = "备注", Width = 25, WidthType = SizeType.Percent });
+
+            this.ucDataGridView1.Columns = lstCulumns;
+
+            ucDataGridView1.IsShowCheckBox = true;
+ 
+
+            ucCombox1.SelectedIndex = 0;
+
+            //初始化欢迎语句
+            string user_Id = log_user_id.ToString();
+            string sqlcmd = $"SELECT * FROM User_table WHERE user_Id = {user_Id}";
+            DataTable dt = accessDB.Sql_Inquire(sqlcmd);
+            if (dt.Rows.Count!=0)
             {
-                FrmInputs frm = new FrmInputs("请输入密码",
-                                       new string[] { "密码" });
-                DialogResult rst = frm.ShowDialog(this);
-
-                Console.WriteLine(frm.Values[0]);
-                //frm.ShowDialog(this);
-                if (frm.Values[0] == "123")
-                {
-                    FrmTips.ShowTipsSuccess(this, "密码正确");
-                    break;
-                }
-                else
-                {
-                    if (rst==DialogResult.Cancel)
-                    {
-                        this.Close();
-                        this.Dispose();
-                        break;
-                    }
-
-                    FrmTips.ShowTipsWarning(this, "密码错误");
-                    
-              
-                }
-            
-
-
-
+                label1.Text += dt.Rows[0][1].ToString();
+            }
+            else
+            {
+                label1.Text += "未知用户";
             }
 
         }
+
+
+        private void ucBtnExt1_BtnClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ucKeyBorderAll1_RetractClike(object sender, EventArgs e)
+        {
+            ucKeyBorderAll1.Visible = false;
+        }
+
+        private void ucBtnExt1_BtnClick_1(object sender, EventArgs e)
+        {
+            ucKeyBorderAll1.Visible = true;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            ucledTime1.Value = DateTime.Now;
+            textBoxEx3.Text = ucDateTimeSelectPan21.CurrentTime.ToString("yyyy-MM-dd HH:mm:ss:fff");
+
+            Application.DoEvents();
+        }
+
+        private void tabControlExt1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            processLine pl = new processLine();
+            pl.ShowDialog(); //进度条
+            switch (tabControlExt1.SelectedIndex)
+            {
+                case 0: this.Title = "轻松记账"; break;
+                case 1:
+                    {
+                        this.Title = "账单"; 
+                        string sqlcmd = $"select * from bill where user_id = {log_user_id}";
+                        table = accessDB.Sql_Inquire(sqlcmd);
+                        this.ucDataGridView1.DataSource = table;
+
+                    }
+                    break;
+                case 2: this.Title = "统计"; break;
+                case 3: this.Title = "设置"; break;
+                default:
+                    break;
+            }
+        }
+
+ 
+
+        private void ucBtnExt2_BtnClick(object sender, EventArgs e)
+        {
+            string user_Id = log_user_id.ToString(), amount = ucNumTextBox1.Num.ToString(), note = textBoxEx1.Text, time = ucDateTimeSelectPan21.CurrentTime.ToString("yyyy-MM-dd HH:mm:ss:fff"), type = ucCombox1.TextValue;
+            string sqlcmd = $"INSERT INTO bill(user_Id,amount,note,[time],type) VALUES({user_Id}, {amount},'{note}','{time}','{type}')";
+
+
+            if (accessDB.Sql_cmd(sqlcmd))
+            {
+                FrmTips.ShowTipsSuccess(this, "记账成功");
+            }
+            else
+            {
+                FrmTips.ShowTipsWarning(this, "出了点错误");
+            }
+        }
+
+        private void textBoxEx3_Click(object sender, EventArgs e)
+        {
+            if (ucDateTimeSelectPan21.Visible == false)
+            {
+                ucDateTimeSelectPan21.Visible = true;
+            }
+            else
+            {
+                ucDateTimeSelectPan21.Visible = false;
+
+            }
+        }
+
+        private void ucBtnExt4_BtnClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ucBtnExt5_BtnClick(object sender, EventArgs e)
+        {
+            foreach ( IDataGridViewRow  row in ucDataGridView1.Rows)
+            {
+                if (row.IsChecked)
+                {
+                    string str = "确认删除编号 : "+ table.Rows[row.RowIndex][5].ToString();
+                    if (FrmDialog.ShowDialog(this, str, "删除记录", true)==DialogResult.OK)
+                    {
+                        Console.WriteLine("删除。。。");
+                        string b_id = table.Rows[row.RowIndex][5].ToString();
+                        string sqlcmd = $"DELETE FROM bill WHERE b_id={b_id};";
+                        if (accessDB.Sql_cmd(sqlcmd))
+                        {
+                            FrmTips.ShowTipsSuccess(this, "删除成功");
+                            break;
+                        }
+
+                        else
+                        {
+                            FrmTips.ShowTipsWarning(this, "出了点错误");
+                        }
+
+                        
+
+                    }
+                  
+
+
+                }
+
+            }
+            string sqlcmd1 = $"select * from bill where user_id = {log_user_id}";
+            table = accessDB.Sql_Inquire(sqlcmd1);
+            this.ucDataGridView1.DataSource = table;
+            ucDataGridView1.ReloadSource();
+        }
+
+
     }
 }
+
