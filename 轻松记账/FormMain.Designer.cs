@@ -56,8 +56,8 @@ namespace 轻松记账
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tabControlExt1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -426,7 +426,7 @@ namespace 轻松记账
             // 
             // tabPage2
             // 
-            this.tabPage2.BackColor = System.Drawing.Color.White;
+            this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.tabPage2.Controls.Add(this.ucBtnExt5);
             this.tabPage2.Controls.Add(this.ucBtnExt4);
             this.tabPage2.Controls.Add(this.ucDataGridView1);
@@ -541,11 +541,6 @@ namespace 轻松记账
             this.tabPage5.Text = "关于";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // timer1
-            // 
-            this.timer1.Interval = 300;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
@@ -556,6 +551,11 @@ namespace 轻松记账
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "项目地址 https://github.com/xrswyea/EZwallet";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 300;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // FormMain
             // 

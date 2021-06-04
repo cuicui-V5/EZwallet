@@ -41,8 +41,7 @@ namespace 轻松记账
 
             ucCombox1.SelectedIndex = 0;
 
-            textBoxEx3.Text = ucDateTimeSelectPan21.CurrentTime.ToString("yyyy-MM-dd HH:mm:ss:fff");
-
+      
             ucNumTextBox1.Num = Convert.ToDecimal(amount_so);
             switch (type_so)
             {
