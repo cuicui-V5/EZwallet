@@ -29,7 +29,7 @@ namespace 轻松记账
 
             DataTable dt = accessDB.Sql_Inquire(sqlcmd);
 
-            if (dt.Rows.Count != 0)
+            if (dt != null&&dt.Rows.Count != 0)
             {
                 textBoxEx1.Text = dt.Rows[0][1].ToString();
                 textBoxEx2.Text = dt.Rows[0][2].ToString();
@@ -49,7 +49,7 @@ namespace 轻松记账
             string sqlcmd = $"SELECT * FROM User_table WHERE user_name='{user_name}' AND pswd ='{pswd}'";
             DataTable dt = accessDB.Sql_Inquire(sqlcmd);
             Boolean sign;
-            if (dt.Rows.Count != 0) //看有没有查到数据
+            if (dt!=null&&dt.Rows.Count != 0) //看有没有查到数据
             {
                 sign = true;
                 loginuser_id = Convert.ToInt32(dt.Rows[0][0]);

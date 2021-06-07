@@ -58,9 +58,11 @@ namespace 轻松记账
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.ucBtnExt3 = new HZH_Controls.Controls.UCBtnExt();
             this.tabControlExt1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -522,6 +524,7 @@ namespace 轻松记账
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.ucBtnExt3);
             this.tabPage4.Location = new System.Drawing.Point(4, 4);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Size = new System.Drawing.Size(786, 336);
@@ -557,6 +560,32 @@ namespace 轻松记账
             this.timer1.Interval = 300;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // ucBtnExt3
+            // 
+            this.ucBtnExt3.BackColor = System.Drawing.Color.Transparent;
+            this.ucBtnExt3.BtnBackColor = System.Drawing.Color.White;
+            this.ucBtnExt3.BtnFont = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ucBtnExt3.BtnForeColor = System.Drawing.Color.White;
+            this.ucBtnExt3.BtnText = "删除账号";
+            this.ucBtnExt3.ConerRadius = 5;
+            this.ucBtnExt3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ucBtnExt3.EnabledMouseEffect = false;
+            this.ucBtnExt3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(77)))), ((int)(((byte)(59)))));
+            this.ucBtnExt3.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.ucBtnExt3.IsRadius = true;
+            this.ucBtnExt3.IsShowRect = true;
+            this.ucBtnExt3.IsShowTips = false;
+            this.ucBtnExt3.Location = new System.Drawing.Point(341, 41);
+            this.ucBtnExt3.Margin = new System.Windows.Forms.Padding(0);
+            this.ucBtnExt3.Name = "ucBtnExt3";
+            this.ucBtnExt3.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(77)))), ((int)(((byte)(58)))));
+            this.ucBtnExt3.RectWidth = 1;
+            this.ucBtnExt3.Size = new System.Drawing.Size(96, 43);
+            this.ucBtnExt3.TabIndex = 0;
+            this.ucBtnExt3.TabStop = false;
+            this.ucBtnExt3.TipsColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(30)))), ((int)(((byte)(99)))));
+            this.ucBtnExt3.TipsText = "";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -576,6 +605,7 @@ namespace 轻松记账
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
             this.ResumeLayout(false);
@@ -611,6 +641,7 @@ namespace 轻松记账
         private HZH_Controls.Controls.UCBtnExt ucBtnExt5;
         private HZH_Controls.Controls.UCBtnExt ucBtnExt4;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private HZH_Controls.Controls.UCBtnExt ucBtnExt3;
     }
 }
 

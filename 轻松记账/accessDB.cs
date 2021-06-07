@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 namespace 轻松记账
 {
     class accessDB
     {
-        static string connstr = @"Data Source=LAPTOP-8Q2UO77P\TEW_SQLEXPRESS;Initial Catalog=wallet;Integrated Security=True";
+        static string connstr = ConfigurationManager.ConnectionStrings["轻松记账.Properties.Settings.walletConnectionString"].ToString();
+        //static string connstr = @"Data Source=LAPTOP-8Q2UO77P\TEW_SQLEXPRESS;Initial Catalog=wallet;Integrated Security=True;Connect Timeout=3";
         public static Boolean Sql_cmd(string cmdStr)
         {//执行插入 删除
             SqlConnection con = null;

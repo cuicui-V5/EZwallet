@@ -74,7 +74,7 @@ namespace 轻松记账
             string user_Id = log_user_id.ToString();
             string sqlcmd = $"SELECT * FROM User_table WHERE user_Id = {user_Id}";
             DataTable dt = accessDB.Sql_Inquire(sqlcmd);
-            if (dt.Rows.Count != 0)
+            if (dt!=null&&dt.Rows.Count != 0)
             {
                 label1.Text += dt.Rows[0][1].ToString();
             }
