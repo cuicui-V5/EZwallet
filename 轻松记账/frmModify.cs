@@ -14,15 +14,15 @@ namespace 轻松记账
     public partial class frmModify : FrmWithTitle
     {
         //传入b_id，读取数据并进行修改操作
-        string bill_id, amount_so, note_so, time_so, type_so;
+        string bill_id, amount_so, note_so, b_time_so, type_so;
 
-        public frmModify(string b_id, string amount, string note, string time, string type)
+        public frmModify(string b_id, string amount, string note, string b_time, string type)
         {
             InitializeComponent();
             bill_id = b_id;
             amount_so = amount;
             note_so = note;
-            time_so = time;
+            b_time_so = b_time;
             type_so = type;
 
 
@@ -53,7 +53,7 @@ namespace 轻松记账
                 default:
                     break;
             }
-            textBoxEx3.Text = time_so;
+            textBoxEx3.Text = b_time_so;
             textBoxEx1.Text = note_so;
 
 
@@ -62,9 +62,9 @@ namespace 轻松记账
 
         private void ucBtnExt2_BtnClick(object sender, EventArgs e)
         {
-            string amount = ucNumTextBox1.Num.ToString(), note = textBoxEx1.Text, time = textBoxEx3.Text, type = ucCombox1.TextValue;
+            string amount = ucNumTextBox1.Num.ToString(), note = textBoxEx1.Text, b_time = textBoxEx3.Text, type = ucCombox1.TextValue;
 
-            string sqlcmd = $"UPDATE bill SET amount={amount},note='{note}',time='{time}',type='{type}' WHERE b_id={bill_id};";
+            string sqlcmd = $"UPDATE bill SET amount={amount},note='{note}',b_time='{b_time}',type='{type}' WHERE b_id={bill_id};";
 
             if (accessDB.Sql_cmd(sqlcmd))
             {

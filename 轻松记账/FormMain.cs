@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -60,7 +61,7 @@ namespace 轻松记账
             lstCulumns.Add(new DataGridViewColumnEntity() { DataField = "b_id", HeadText = "序号", Width = 10, WidthType = SizeType.Percent });
             lstCulumns.Add(new DataGridViewColumnEntity() { DataField = "type", HeadText = "类型", Width = 15, WidthType = SizeType.Percent });
             lstCulumns.Add(new DataGridViewColumnEntity() { DataField = "amount", HeadText = "金额", Width = 20, WidthType = SizeType.Percent });
-            lstCulumns.Add(new DataGridViewColumnEntity() { DataField = "time", HeadText = "时间", Width = 25, WidthType = SizeType.Percent });
+            lstCulumns.Add(new DataGridViewColumnEntity() { DataField = "b_time", HeadText = "时间", Width = 25, WidthType = SizeType.Percent });
             lstCulumns.Add(new DataGridViewColumnEntity() { DataField = "note", HeadText = "备注", Width = 25, WidthType = SizeType.Percent });
 
             this.ucDataGridView1.Columns = lstCulumns;
@@ -85,8 +86,16 @@ namespace 轻松记账
 
 
             textBoxEx3.Text = ucDateTimeSelectPan21.CurrentTime.ToString("yyyy-MM-dd HH:mm:ss:fff");
+            if (ConfigurationManager.AppSettings["database"].ToString()=="mysql")
+            {
+                this.Title = "轻松记账（在线模式）";
 
+            }
+            else
+            {
 
+                this.Title = "轻松记账（本地模式）";
+            }
         }
 
 
@@ -139,8 +148,8 @@ namespace 轻松记账
 
         private void ucBtnExt2_BtnClick(object sender, EventArgs e)
         {
-            string user_Id = log_user_id.ToString(), amount = ucNumTextBox1.Num.ToString(), note = textBoxEx1.Text, time = ucDateTimeSelectPan21.CurrentTime.ToString("yyyy-MM-dd HH:mm:ss:fff"), type = ucCombox1.TextValue;
-            string sqlcmd = $"INSERT INTO bill(user_Id,amount,note,[time],type) VALUES({user_Id}, {amount},'{note}','{time}','{type}')";
+            string user_Id = log_user_id.ToString(), amount = ucNumTextBox1.Num.ToString(), note = textBoxEx1.Text, b_time = ucDateTimeSelectPan21.CurrentTime.ToString("yyyy-MM-dd HH:mm:ss:fff"), type = ucCombox1.TextValue;
+            string sqlcmd = $"INSERT INTO bill(user_Id,amount,note,b_time,type) VALUES({user_Id}, {amount},'{note}','{b_time}','{type}')";
 
 
             if (accessDB.Sql_cmd(sqlcmd))
@@ -180,9 +189,9 @@ namespace 轻松记账
                     string b_id = table.Rows[row.RowIndex][5].ToString();
                     string amount = table.Rows[row.RowIndex][1].ToString();
                     string note = table.Rows[row.RowIndex][2].ToString();
-                    string time = table.Rows[row.RowIndex][3].ToString();
+                    string b_time = table.Rows[row.RowIndex][3].ToString();
                     string type = table.Rows[row.RowIndex][4].ToString();
-                    frmModify frmmod = new frmModify(b_id, amount, note, time,type);
+                    frmModify frmmod = new frmModify(b_id, amount, note, b_time,type);
                     frmmod.ShowDialog();
                     if (frmmod.DialogResult == DialogResult.OK)
                     {
@@ -196,7 +205,11 @@ namespace 轻松记账
                     }
 
                 }
+                else
+                {
+                    FrmTips.ShowTipsWarning(this, "未选择任何项目，请点击项目前面的复选框");
 
+                }
             }
             string sqlcmd1 = $"select * from bill where user_id = {log_user_id}";
             table = accessDB.Sql_Inquire(sqlcmd1);
@@ -236,7 +249,11 @@ namespace 轻松记账
 
 
                 }
+                else
+                {
+                    FrmTips.ShowTipsWarning(this, "未选择任何项目，请点击项目前面的复选框");
 
+                }
             }
             string sqlcmd1 = $"select * from bill where user_id = {log_user_id}";
             table = accessDB.Sql_Inquire(sqlcmd1);

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -24,21 +25,7 @@ namespace 轻松记账
         private void frmLogin_Load(object sender, EventArgs e)
         {
 
-            //处理记住密码部分
-            string sqlcmd = "SELECT * FROM User_table WHERE [default] = 1";
-
-            DataTable dt = accessDB.Sql_Inquire(sqlcmd);
-
-            if (dt != null&&dt.Rows.Count != 0)
-            {
-                textBoxEx1.Text = dt.Rows[0][1].ToString();
-                textBoxEx2.Text = dt.Rows[0][2].ToString();
-                ucCheckBox1.Checked = true;
-
-
-
-
-            }
+           
 
 
         }
@@ -68,19 +55,21 @@ namespace 轻松记账
                 //处理记住密码部分
                 if (ucCheckBox1.Checked)
                 {
-                    string sqlcmd1 = "UPDATE User_table SET [default]=0 WHERE [default]=1;";
+                    string sqlcmd1 = "UPDATE User_table SET default_user=0 WHERE default_user=1;";
                     accessDB.Sql_cmd(sqlcmd1);
 
-                    string sqlcmd2 = $"UPDATE User_table SET [default]=1 WHERE user_Id={loginuser_id};";
+                    string sqlcmd2 = $"UPDATE User_table SET default_user=1 WHERE user_Id={loginuser_id};";
                     accessDB.Sql_cmd(sqlcmd2);
 
 
                 }
                 else
                 {
-                    string sqlcmd3 = "UPDATE User_table SET [default]=0 WHERE [default]=1;";
+                    string sqlcmd3 = "UPDATE User_table SET default_user=0 WHERE default_user=1;";
                     accessDB.Sql_cmd(sqlcmd3);
                 }
+
+  
 
                 this.Close();
                 this.Dispose();
@@ -104,6 +93,68 @@ namespace 轻松记账
 
         }
 
+        private void ucCheckBox2_CheckedChangeEvent(object sender, EventArgs e)
+        {
 
+            if (ucCheckBox2.Checked)
+            {
+                string file = System.Windows.Forms.Application.ExecutablePath;
+                Configuration config = ConfigurationManager.OpenExeConfiguration(file);
+                config.AppSettings.Settings["database"].Value = "mysql";
+                config.Save(ConfigurationSaveMode.Modified);
+                ConfigurationManager.RefreshSection("appSettings");
+            }
+            else
+            {
+                string file = System.Windows.Forms.Application.ExecutablePath;
+                Configuration config = ConfigurationManager.OpenExeConfiguration(file);
+                config.AppSettings.Settings["database"].Value = "sql server";
+                config.Save(ConfigurationSaveMode.Modified);
+                ConfigurationManager.RefreshSection("appSettings");
+            }
+            //处理记住密码部分
+            string sqlcmd = "SELECT * FROM User_table WHERE default_user= 1";
+
+            DataTable dt = accessDB.Sql_Inquire(sqlcmd);
+
+
+
+            if (dt != null && dt.Rows.Count != 0)
+            {
+                textBoxEx1.Text = dt.Rows[0][1].ToString();
+                textBoxEx2.Text = dt.Rows[0][2].ToString();
+                ucCheckBox1.Checked = true;
+
+
+            }
+
+        }
+
+        private void frmLogin_Shown(object sender, EventArgs e)
+        {
+            //处理记住密码部分
+            string sqlcmd = "SELECT * FROM User_table WHERE default_user= 1";
+
+            DataTable dt = accessDB.Sql_Inquire(sqlcmd);
+
+    
+
+            if (dt != null && dt.Rows.Count != 0)
+            {
+                textBoxEx1.Text = dt.Rows[0][1].ToString();
+                textBoxEx2.Text = dt.Rows[0][2].ToString();
+                ucCheckBox1.Checked = true;
+
+
+            }
+            if (ConfigurationManager.AppSettings["database"].ToString() == "mysql")
+            {
+                ucCheckBox2.Checked = true;
+            }
+            else
+            {
+                ucCheckBox2.Checked = false;
+            }
+        }
     }
 }

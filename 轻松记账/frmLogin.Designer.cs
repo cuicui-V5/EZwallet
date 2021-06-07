@@ -37,13 +37,14 @@ namespace 轻松记账
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.ucSplitLabel1 = new HZH_Controls.Controls.UCSplitLabel();
             this.ucSplitLabel2 = new HZH_Controls.Controls.UCSplitLabel();
+            this.ucCheckBox2 = new HZH_Controls.Controls.UCCheckBox();
             this.SuspendLayout();
             // 
             // textBoxEx1
             // 
             this.textBoxEx1.DecLength = 2;
             this.textBoxEx1.InputType = HZH_Controls.TextInputType.NotControl;
-            this.textBoxEx1.Location = new System.Drawing.Point(216, 110);
+            this.textBoxEx1.Location = new System.Drawing.Point(211, 93);
             this.textBoxEx1.MaxValue = new decimal(new int[] {
             1000000,
             0,
@@ -68,7 +69,7 @@ namespace 轻松记账
             // 
             this.textBoxEx2.DecLength = 2;
             this.textBoxEx2.InputType = HZH_Controls.TextInputType.NotControl;
-            this.textBoxEx2.Location = new System.Drawing.Point(216, 176);
+            this.textBoxEx2.Location = new System.Drawing.Point(211, 159);
             this.textBoxEx2.MaxValue = new decimal(new int[] {
             1000000,
             0,
@@ -93,7 +94,7 @@ namespace 轻松记账
             // 
             this.ucCheckBox1.BackColor = System.Drawing.Color.Transparent;
             this.ucCheckBox1.Checked = false;
-            this.ucCheckBox1.Location = new System.Drawing.Point(216, 203);
+            this.ucCheckBox1.Location = new System.Drawing.Point(211, 186);
             this.ucCheckBox1.Name = "ucCheckBox1";
             this.ucCheckBox1.Padding = new System.Windows.Forms.Padding(1);
             this.ucCheckBox1.Size = new System.Drawing.Size(140, 40);
@@ -115,7 +116,7 @@ namespace 轻松记账
             this.ucBtnExt1.IsRadius = true;
             this.ucBtnExt1.IsShowRect = true;
             this.ucBtnExt1.IsShowTips = false;
-            this.ucBtnExt1.Location = new System.Drawing.Point(188, 277);
+            this.ucBtnExt1.Location = new System.Drawing.Point(190, 280);
             this.ucBtnExt1.Margin = new System.Windows.Forms.Padding(0);
             this.ucBtnExt1.Name = "ucBtnExt1";
             this.ucBtnExt1.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(77)))), ((int)(((byte)(58)))));
@@ -130,7 +131,7 @@ namespace 轻松记账
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(272, 291);
+            this.linkLabel1.Location = new System.Drawing.Point(274, 294);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(68, 17);
             this.linkLabel1.TabIndex = 4;
@@ -143,7 +144,7 @@ namespace 轻松记账
             this.ucSplitLabel1.AutoSize = true;
             this.ucSplitLabel1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ucSplitLabel1.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(238)))), ((int)(((byte)(245)))));
-            this.ucSplitLabel1.Location = new System.Drawing.Point(134, 109);
+            this.ucSplitLabel1.Location = new System.Drawing.Point(129, 92);
             this.ucSplitLabel1.MaximumSize = new System.Drawing.Size(0, 23);
             this.ucSplitLabel1.MinimumSize = new System.Drawing.Size(150, 23);
             this.ucSplitLabel1.Name = "ucSplitLabel1";
@@ -157,7 +158,7 @@ namespace 轻松记账
             this.ucSplitLabel2.AutoSize = true;
             this.ucSplitLabel2.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ucSplitLabel2.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(238)))), ((int)(((byte)(245)))));
-            this.ucSplitLabel2.Location = new System.Drawing.Point(134, 175);
+            this.ucSplitLabel2.Location = new System.Drawing.Point(129, 158);
             this.ucSplitLabel2.MaximumSize = new System.Drawing.Size(0, 23);
             this.ucSplitLabel2.MinimumSize = new System.Drawing.Size(150, 23);
             this.ucSplitLabel2.Name = "ucSplitLabel2";
@@ -166,12 +167,25 @@ namespace 轻松记账
             this.ucSplitLabel2.TabIndex = 14;
             this.ucSplitLabel2.Text = "密码";
             // 
+            // ucCheckBox2
+            // 
+            this.ucCheckBox2.BackColor = System.Drawing.Color.Transparent;
+            this.ucCheckBox2.Checked = true;
+            this.ucCheckBox2.Location = new System.Drawing.Point(211, 216);
+            this.ucCheckBox2.Name = "ucCheckBox2";
+            this.ucCheckBox2.Padding = new System.Windows.Forms.Padding(1);
+            this.ucCheckBox2.Size = new System.Drawing.Size(185, 40);
+            this.ucCheckBox2.TabIndex = 16;
+            this.ucCheckBox2.TextValue = "使用在线数据库";
+            this.ucCheckBox2.CheckedChangeEvent += new System.EventHandler(this.ucCheckBox2_CheckedChangeEvent);
+            // 
             // frmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.ClientSize = new System.Drawing.Size(493, 353);
+            this.Controls.Add(this.ucCheckBox2);
             this.Controls.Add(this.textBoxEx2);
             this.Controls.Add(this.textBoxEx1);
             this.Controls.Add(this.ucSplitLabel2);
@@ -186,6 +200,7 @@ namespace 轻松记账
             this.Text = "frmLogin";
             this.Title = "登陆";
             this.Load += new System.EventHandler(this.frmLogin_Load);
+            this.Shown += new System.EventHandler(this.frmLogin_Shown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.frmLogin_KeyPress);
             this.Controls.SetChildIndex(this.ucCheckBox1, 0);
             this.Controls.SetChildIndex(this.ucBtnExt1, 0);
@@ -194,6 +209,7 @@ namespace 轻松记账
             this.Controls.SetChildIndex(this.ucSplitLabel2, 0);
             this.Controls.SetChildIndex(this.textBoxEx1, 0);
             this.Controls.SetChildIndex(this.textBoxEx2, 0);
+            this.Controls.SetChildIndex(this.ucCheckBox2, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -208,5 +224,6 @@ namespace 轻松记账
         private System.Windows.Forms.LinkLabel linkLabel1;
         private HZH_Controls.Controls.UCSplitLabel ucSplitLabel1;
         private HZH_Controls.Controls.UCSplitLabel ucSplitLabel2;
+        private HZH_Controls.Controls.UCCheckBox ucCheckBox2;
     }
 }
